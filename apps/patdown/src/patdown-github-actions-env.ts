@@ -2,12 +2,12 @@ import { Config, Effect, Option } from 'effect'
 
 /** True when GitHub Actions exposes a step summary file. */
 export const patdownGitHubActionsIsEnabled: Effect.Effect<boolean> = Effect.gen(function* () {
-	const actions = yield* Config.string('GITHUB_ACTIONS').pipe(
+	const actions = yield* Config.String('GITHUB_ACTIONS').pipe(
 		Config.option,
 		Effect.orElseSucceed(() => Option.none()),
 	)
 
-	const summary = yield* Config.string('GITHUB_STEP_SUMMARY').pipe(
+	const summary = yield* Config.String('GITHUB_STEP_SUMMARY').pipe(
 		Config.option,
 		Effect.orElseSucceed(() => Option.none()),
 	)
@@ -25,7 +25,7 @@ export const readPatdownGitHubStepSummaryPath: Effect.Effect<string | null> = Ef
 	function* () {
 		if (!(yield* patdownGitHubActionsIsEnabled)) return null
 
-		const summary = yield* Config.string('GITHUB_STEP_SUMMARY').pipe(
+		const summary = yield* Config.String('GITHUB_STEP_SUMMARY').pipe(
 			Config.option,
 			Effect.orElseSucceed(() => Option.none()),
 		)

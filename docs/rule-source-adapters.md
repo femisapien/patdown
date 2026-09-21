@@ -152,6 +152,6 @@ The executable alone calls `NodeRuntime.runMain`. Command handlers still set `pr
 
 The workspace packages are still private and unpublished. The GitHub release currently supplies source, not an installable CLI bundle. These imports assume a built checkout with workspace dependencies or an equivalent local development setup. Build with `pnpm install` and `pnpm -w build`; the executable is `apps/patdown/dist/patdown-cli-bin.js`.
 
-Use matching Effect versions across the host and adapter. This checkout pins Effect `4.0.0-rc.112`; its prerelease APIs are not a stable cross-version plugin ABI. Third-party adapters must make the host's `@patdown/rules` service and matching Effect runtime resolvable, typically through peer dependencies once publishing is available.
+Use matching Effect versions across the host and adapter. This checkout pins Effect `4.0.0-rc.116`; its prerelease APIs are not a stable cross-version plugin ABI. Third-party adapters must make the host's `@patdown/rules` service and matching Effect runtime resolvable, typically through peer dependencies once publishing is available.
 
 The workspace `pnpm -w patdown` command executes from `apps/patdown`. To lint another project, invoke the built executable by absolute path from that project's directory. Its cwd determines config discovery and target globs.

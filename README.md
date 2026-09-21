@@ -2,7 +2,7 @@
 
 Standalone CLI that lints a tree against fuzzy rules in one markdown file. Wrap it as a hook, plugin, or extension.
 
-The judge is swappable. The default backend currently uses TypeSafe/Jev; rules and CLI commands use a provider-neutral interface.
+The judge is swappable. The default backend uses Effect `Decision` / `DecisionModel` with TypeSafe; rules and CLI commands use a provider-neutral interface.
 
 ## Install
 
@@ -209,13 +209,13 @@ patdown: failed (elapsed: 1840ms)
 
 Patdown counts estimated P(yes) strictly above the cutoff as yes; for lint, yes means violation. Default cutoff is 0.85. Override it with `--yes-threshold`, package.json `patdown.yesThreshold`, or a per-rule `yes-threshold:` line. The flag wins over package.json; a per-rule value wins for that rule only. `1` is rejected because nothing can exceed it. This cutoff belongs to patdown, not the provider.
 
-See [judge providers](docs/judge-providers.md) for custom layers and the planned Effect Decision integration.
+See [judge providers](docs/judge-providers.md) for custom layers and the TypeSafe Decision adapter.
 
 ## Large inputs and API errors
 
 Jev has a token budget, not a fixed safe diff size. Direct testing of `jev-1.13.0` accepted a 96,768-byte synthetic diff but rejected 97,536 bytes with HTTP 400 and `max_tokens_exceeded`; a larger, low-token input still succeeded. Different text, questions, and models can move that boundary.
 
-The Jev client reports HTTP status, recognized provider error codes, input byte count, and a TypeSafe request ID when available. It distinguishes token limits from HTTP payload, authentication, rate/quota, and server failures without printing raw response bodies. It does not silently truncate input.
+The TypeSafe adapter reports HTTP status, recognized provider error codes, input byte count, and a TypeSafe request ID when available. It distinguishes token limits from HTTP payload, authentication, rate/quota, and server failures without printing raw response bodies. It does not silently truncate input.
 
 See [the measured results and live probe commands](docs/jev-input-limits.md), including how to compare a separate Vercel AI Gateway integration.
 
@@ -277,7 +277,7 @@ pnpm -w release major
 
 First write and commit `releases/vX.Y.Z.md` with the next version's notes. The release command requires a clean tree and validates those notes before changing anything. It runs `pnpm check`, bumps the CLI version, commits, tags `vX.Y.Z`, and pushes to `github` and `gitea` if present. With `gh` available, it watches the matching Release workflow.
 
-The tag workflow runs checks again, creates a GitHub Release using the checked-in notes, and publishes `patdown`, `@patdown/rules`, `@patdown/jev`, `@patdown/pi`, `@patdown/claude`, and `@patdown/packs` to npm. See [the release process](releases/README.md) for the metadata format and backfilling published notes.
+The tag workflow runs checks again, creates a GitHub Release using the checked-in notes, and publishes `patdown`, `@patdown/rules`, `@patdown/pi`, `@patdown/claude`, and `@patdown/packs` to npm. See [the release process](releases/README.md) for the metadata format and backfilling published notes.
 
 Pull requests and pushes to `main` run `pnpm check`. That is oxlint, tests, and typecheck. Not the fuzzy linter.
 

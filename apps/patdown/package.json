@@ -59,8 +59,8 @@
 		"typecheck": "node ../../scripts/warn-direct-package-task.mjs typecheck && tsc -p tsconfig.app.json --incremental --tsBuildInfoFile typecheck.app.tsbuildinfo && tsc -p tsconfig.vitest.json --incremental --tsBuildInfoFile typecheck.vitest.tsbuildinfo"
 	},
 	"dependencies": {
+		"@effect/ai-typesafe": "catalog:effect",
 		"@effect/platform-node": "catalog:effect",
-		"@patdown/jev": "workspace:*",
 		"@patdown/rules": "workspace:*",
 		"effect": "catalog:effect",
 		"import-meta-resolve": "catalog:"

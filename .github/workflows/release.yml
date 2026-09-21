@@ -51,7 +51,6 @@ jobs:
             exit 0
           fi
           pnpm publish --filter @patdown/rules --access public --no-git-checks
-          pnpm publish --filter @patdown/jev --access public --no-git-checks
           pnpm publish --filter @patdown/pi --access public --no-git-checks
           pnpm publish --filter @patdown/claude --access public --no-git-checks
           pnpm publish --filter @patdown/packs --access public --no-git-checks

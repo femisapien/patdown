@@ -44,12 +44,12 @@ Do not hardcode 96 KB as a safe limit. Reduce irrelevant diff content, or split 
 
 ## Error handling
 
-Previously, patdown's Jev client collapsed all non-success HTTP responses into `jev: System One request failed`. That hid the provider's token-limit rejection.
+Previously, the System One client collapsed all non-success HTTP responses into `jev: System One request failed`. That hid the provider's token-limit rejection.
 
-The updated client preserves HTTP status, a validated provider error code, and the TypeSafe request ID. The end-to-end CLI test now exits 1 with:
+The TypeSafe Decision adapter preserves HTTP status, a validated provider error code, and the TypeSafe request ID. A token-limit rejection now exits 1 with:
 
 ```text
-jev: System One HTTP 400: model token limit exceeded; shorten the question/input or split it into smaller requests; code: max_tokens_exceeded; input UTF-8 bytes: 97536; request ID: req_...
+patdown: TypeSafe HTTP 400: model token limit exceeded; shorten the question/input or split it into smaller requests; code: max_tokens_exceeded; input UTF-8 bytes: 97536; request ID: req_...
 ```
 
 The byte count is the state/input only, not the entire JSON request or a token estimate.

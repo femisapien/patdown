@@ -31,7 +31,7 @@ describe('console rule blocks', () => {
 				elapsedMs: 9,
 			}),
 			result({
-				filePath: 'packages/patdown-jev/src/index.ts',
+				filePath: 'packages/patdown-rules/src/index.ts',
 				violated: true,
 				violationProbability: 0.91,
 				elapsedMs: 90,
@@ -51,7 +51,7 @@ describe('console rule blocks', () => {
 			'│',
 			'│  ✓  ▓▓░░░░░░░░  0.22   131ms  cli.ts',
 			'│',
-			'├─ packages/patdown-jev/src',
+			'├─ packages/patdown-rules/src',
 			'│',
 			'│  ✗  ▓▓▓▓▓▓▓▓▓░  0.91    90ms  index.ts',
 			'└ 1✗ / 3',

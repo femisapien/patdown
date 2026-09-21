@@ -23,46 +23,46 @@ const failPatdown = (message: string): Effect.Effect<void> =>
 		process.stderr.write(`${message}\n`)
 	})
 
-const rulesFileFlag = Flag.optional(Flag.string('rules')).pipe(
+const rulesFileFlag = Flag.optional(Flag.String('rules')).pipe(
 	Flag.withDescription(
 		'Rules markdown file or directory of rule files. Skips the AGENTS.PATDOWN.md walk',
 	),
 )
 
-const verboseFlag = Flag.boolean('verbose').pipe(
+const verboseFlag = Flag.Boolean('verbose').pipe(
 	Flag.withDefault(false),
 	Flag.withDescription(
 		'Show estimated yes probabilities, the decision cutoff, and elapsed judge time',
 	),
 )
 
-const adapterFlag = Flag.optional(Flag.string('adapter')).pipe(
+const adapterFlag = Flag.optional(Flag.String('adapter')).pipe(
 	Flag.withDescription('Module exporting PatdownRuleSourceLive, replacing markdown rule parsing'),
 )
 
-const yesThresholdFlag = Flag.optional(Flag.float('yes-threshold')).pipe(
+const yesThresholdFlag = Flag.optional(Flag.Finite('yes-threshold')).pipe(
 	Flag.withDescription('Minimum exclusive P(yes) for yes; default 0.85, overridable per rule'),
 )
 
-const filesFlag = Flag.string('files').pipe(
+const filesFlag = Flag.String('files').pipe(
 	Flag.between(0, 10_000),
 	Flag.withDescription(
 		'Restrict lint to these files, directories, or globs; directories expand; intersects each rule glob',
 	),
 )
 
-const filesFromFlag = Flag.optional(Flag.string('files-from')).pipe(
+const filesFromFlag = Flag.optional(Flag.String('files-from')).pipe(
 	Flag.withDescription(
 		'Newline-separated files, directories, or globs to lint; use - for stdin; intersects each rule glob',
 	),
 )
 
-const noGitHubFlag = Flag.boolean('no-github').pipe(
+const noGitHubFlag = Flag.Boolean('no-github').pipe(
 	Flag.withDefault(false),
 	Flag.withDescription('Disable GitHub Actions summary and annotations'),
 )
 
-const githubAnnotationFlag = Flag.optional(Flag.string('github-annotation')).pipe(
+const githubAnnotationFlag = Flag.optional(Flag.String('github-annotation')).pipe(
 	Flag.withDescription(
 		'GitHub Actions FAIL annotation level: error, warning, or notice; overridable per rule',
 	),
@@ -144,13 +144,13 @@ function makePatdownAskCommand(): Command.Command<
 	return Command.make(
 		'ask',
 		{
-			question: Argument.string('question'),
+			question: Argument.String('question'),
 			verbose: verboseFlag,
 			yesThreshold: yesThresholdFlag,
-			inputText: Flag.optional(Flag.string('input-text')).pipe(
+			inputText: Flag.optional(Flag.String('input-text')).pipe(
 				Flag.withDescription('Text to evaluate'),
 			),
-			stdin: Flag.boolean('stdin').pipe(
+			stdin: Flag.Boolean('stdin').pipe(
 				Flag.withDefault(false),
 				Flag.withDescription('Read UTF-8 text from piped or redirected stdin'),
 			),

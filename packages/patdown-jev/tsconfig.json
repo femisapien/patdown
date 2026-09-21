@@ -1,9 +1,0 @@
-{
-	"extends": "@patdown/tsconfig/node-library.json",
-	"files": [],
-	"references": [
-		{ "path": "./tsconfig.app.json" },
-		{ "path": "./tsconfig.vitest.json" },
-		{ "path": "./tsconfig.build.json" }
-	]
-}

@@ -39,8 +39,8 @@ This custom provider needs no TypeSafe API key. Rule-source adapters and judge p
 
 Install `patdown` from npm. Custom providers still need a matching Effect version.
 
-## Default backend and future migration
+## Default backend
 
-`TypeSafeJudgeLive` currently translates the private TypeSafe client's response into `yesProbability`. Its wire-format terminology stays inside that adapter/client. TypeSafe environment variables only configure this backend.
+`TypeSafeJudgeLive` answers `PatdownJudge` through Effect `Decision` / `DecisionModel` and `@effect/ai-typesafe`. Yes/no uses a probability decision; FAIL-only evidence location uses classify. TypeSafe environment variables only configure this backend. Wire-format terminology stays inside the adapter.
 
-[Issue #1](https://github.com/tyler-dot-earth/patdown/issues/1) tracks the upcoming Effect `Decision` and `DecisionModel` modules. Once those APIs are available, replace this backend layer with an implementation using them. We do not assume an unreleased API signature or expose it through the CLI today. The service contract, rule sources, output, and cutoff remain independent of that migration.
+The service contract, rule sources, output, and cutoff stay independent of the TypeSafe provider. Swap the judge layer; do not import `DecisionModel` from CLI callers unless you are writing a provider.
