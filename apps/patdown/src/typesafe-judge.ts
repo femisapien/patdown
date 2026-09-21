@@ -189,7 +189,7 @@ function readTypeSafeApiKey(): Effect.Effect<Redacted.Redacted, PatdownJudgeFail
 				}),
 		),
 		Effect.filterOrFail(
-			(apiKey) => Redacted.value(apiKey).length > 0,
+			(apiKey) => Redacted.value(apiKey).trim().length > 0,
 			() =>
 				new PatdownJudgeFailed({
 					message: 'patdown: TYPESAFE_API_KEY is missing or empty',

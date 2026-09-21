@@ -164,4 +164,20 @@ describe('TypeSafe DecisionModel judge errors', () => {
 			expect(error.message).toBe('patdown: TYPESAFE_API_KEY is missing or empty')
 		}),
 	)
+
+	it.effect('fails closed when the TypeSafe API key is only whitespace', () =>
+		Effect.gen(function* () {
+			const error = yield* askPatdownJudge('Question?', 'text').pipe(
+				Effect.provide(
+					Layer.mergeAll(
+						TypeSafeJudgeLive,
+						ConfigProvider.layer(ConfigProvider.fromUnknown({ TYPESAFE_API_KEY: '   ' })),
+					),
+				),
+				Effect.flip,
+			)
+
+			expect(error.message).toBe('patdown: TYPESAFE_API_KEY is missing or empty')
+		}),
+	)
 })
